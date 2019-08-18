@@ -6,7 +6,7 @@ out_name<-"genotype"
 plink_blupf90<-function(genotype_file_name,map_file_name,out_name){
   if(!require(data.table)) install.packages("data.table")
   ped<-fread(genotype_file_name,header = F)
-  map<-fread("test_qc.map",header = F)
+  map<-fread(map_file_name,header = F)
   #genotype for blupf90
   ped<-ped[-1,-c(1,3:6)]
   ped[is.na(ped)]=5
