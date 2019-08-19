@@ -11,7 +11,8 @@ plink_blupf90<-function(genotype_file_name,map_file_name,out_name){
   ped<-ped[-1,-c(1,3:6)]
   ped[is.na(ped)]=5
   ped_blupf90<-matrix(nrow = nrow(ped),ncol = 2)
-  n<-max(nchar(ped[1,]))
+  names(ped)[1]<-"id"
+  n<-max(nchar(ped$id))
   for(i in 1:nrow(ped)){
     id<-as.character(ped[i,1])
     ped_blupf90[i,1]<-sprintf(paste("%",n,"s",sep = ""),id)
