@@ -9,7 +9,6 @@ plink_blupf90<-function(genotype_file_name,map_file_name,out_name){
   map<-fread(map_file_name,header = F)
   #genotype for blupf90
   ped<-ped[-1,-c(1,3:6)]
-  ped[is.na(ped)]=5
   ped_blupf90<-matrix(nrow = nrow(ped),ncol = 2)
   names(ped)[1]<-"id"
   n<-max(nchar(ped$id))
@@ -17,6 +16,7 @@ plink_blupf90<-function(genotype_file_name,map_file_name,out_name){
     id<-as.character(ped[i,1])
     ped_blupf90[i,1]<-sprintf(paste("%",n,"s",sep = ""),id)
     geno<-as.numeric(ped[i,-1])
+    geno[is.na(geno)]<-5
     ped_blupf90[i,2]<-paste(geno,collapse = "")
   }
   fwrite(as.data.frame(ped_blupf90),paste(out_name,"_blupf90",sep = ""),row.names = F,col.names = F,sep = " ",quote = F)
